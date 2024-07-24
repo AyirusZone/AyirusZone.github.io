@@ -1,0 +1,195 @@
+/* Typography ****************************** */
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  --accent-color: orangered;
+  --background-color: white;
+  --text-color: black;
+  --button-text-color: var(--background-color);
+  --transition-delay: 1.5s;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.4;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  transition: var(--transition-delay);
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.wave {
+  animation-name: wave-animation;
+  animation-duration: 2.5s;
+  animation-iteration-count: 1;
+  transform-origin: 70% 70%;
+  display: inline-block;
+  animation-delay: 1s;
+}
+
+@keyframes wave-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  10% {
+    transform: rotate(14deg);
+  }
+
+  20% {
+    transform: rotate(-8deg);
+  }
+
+  30% {
+    transform: rotate(14deg);
+  }
+
+  40% {
+    transform: rotate(-4deg);
+  }
+
+  50% {
+    transform: rotate(10deg);
+  }
+
+  60% {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+/* Dark Mode styles */
+body.dark {
+  color: #eee;
+  background: #2e373d;
+  --accent-color: #d0d066;
+  --background-color: #333;
+  --text-color: white;
+}
+
+body.dark a {
+  color: #527dfd;
+}
+
+h1 {
+  font-size: 14vw;
+  display: block;
+  text-align: center;
+  font-weight: lighter;
+  line-height: 1;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.btn-toggle {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  text-align: right;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+.checkbox {
+  opacity: 0;
+  position: absolute;
+  top: 10px;
+  right: 32px;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -100;
+}
+
+.sun-moon-container {
+  --rotation: 0;
+  margin-top: 1rem;
+  left: 2rem;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  height: 200vmin;
+  transform: rotate(calc(var(--rotation) * 1deg));
+  transition: transform var(--transition-delay);
+}
+
+.sun,
+.moon {
+  position: absolute;
+  transition: opacity, fill, var(--transition-delay);
+  width: 30px;
+  height: 30px;
+  fill: var(--accent-color);
+}
+
+.sun {
+  top: 0.05rem;
+  opacity: 1;
+}
+.dark .sun {
+  opacity: 0;
+}
+.moon {
+  bottom: 0.05rem;
+  opacity: 0;
+  transform: rotate(180deg);
+}
+
+.dark .moon {
+  opacity: 1;
+}
+
+p {
+  display: block;
+  margin-bottom: 1em;
+}
+
+em {
+  font-style: italic;
+}
+
+strong {
+  font-weight: 700;
+}
+
+a {
+  color: inherit;
+  position: relative;
+}
+
+/* Layout ****************************** */
+
+main {
+  margin: 30px;
+  margin: 10vh 10vw;
+  max-width: 600px;
+}
+main .para{
+  overflow: auto;
+  max-height: 60vh;
+}
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.social a {
+  margin-right: 0.6em;
+}
