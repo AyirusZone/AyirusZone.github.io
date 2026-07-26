@@ -1,38 +1,48 @@
-const sunMoonContainer = document.querySelector('.sun-moon-container')
-const chk = document.getElementById('chk');
+(function () {
+  var root = document.documentElement;
+  var chk = document.getElementById('chk');
+  var sunMoonContainer = document.querySelector('.sun-moon-container');
 
-chk.addEventListener('change', () => {
-	document.body.classList.toggle('dark');
-  const currentRotation = parseInt(getComputedStyle(sunMoonContainer).getPropertyValue('--rotation'))
-  sunMoonContainer.style.setProperty('--rotation', currentRotation + 180)
-});
+  function applyTheme(isDark, persist) {
+    root.classList.toggle('dark', isDark);
+    chk.checked = isDark;
+    sunMoonContainer.style.setProperty('--rotation', isDark ? 180 : 0);
+    if (persist) {
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+  }
 
-var TxtRotate = function(el, toRotate, period) {
+  applyTheme(root.classList.contains('dark'), false);
+
+  chk.addEventListener('change', function () {
+    applyTheme(chk.checked, true);
+  });
+})();
+
+var TxtRotate = function (el, toRotate, period) {
   this.toRotate = toRotate;
   this.el = el;
   this.loopNum = 0;
   this.period = parseInt(period, 10) || 1000;
   this.txt = '';
-  this.tick();
   this.isDeleting = false;
+  this.tick();
 };
 
-TxtRotate.prototype.tick = function() {
+TxtRotate.prototype.tick = function () {
   var i = this.loopNum % this.toRotate.length;
   var fullTxt = this.toRotate[i];
 
-  if (this.isDeleting) {
-    this.txt = fullTxt.substring(0, this.txt.length - 1);
-  } else {
-    this.txt = fullTxt.substring(0, this.txt.length + 1);
-  }
+  this.txt = this.isDeleting
+    ? fullTxt.substring(0, this.txt.length - 1)
+    : fullTxt.substring(0, this.txt.length + 1);
 
-  this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+  this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
 
-  var that = this;
   var delta = 300 - Math.random() * 100;
-
-  if (this.isDeleting) { delta /= 2; }
+  if (this.isDeleting) {
+    delta /= 2;
+  }
 
   if (!this.isDeleting && this.txt === fullTxt) {
     delta = this.period;
@@ -43,23 +53,26 @@ TxtRotate.prototype.tick = function() {
     delta = 500;
   }
 
-  setTimeout(function() {
+  var that = this;
+  setTimeout(function () {
     that.tick();
   }, delta);
 };
 
-window.onload = function() {
+window.addEventListener('load', function () {
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var elements = document.getElementsByClassName('txt-rotate');
-  for (var i=0; i<elements.length; i++) {
+
+  for (var i = 0; i < elements.length; i++) {
     var toRotate = elements[i].getAttribute('data-rotate');
     var period = elements[i].getAttribute('data-period');
-    if (toRotate) {
-      new TxtRotate(elements[i], JSON.parse(toRotate), period);
+    if (!toRotate) continue;
+
+    var words = JSON.parse(toRotate);
+    if (reduceMotion) {
+      elements[i].innerHTML = '<span class="wrap">' + words[0] + '</span>';
+      continue;
     }
+    new TxtRotate(elements[i], words, period);
   }
-  // INJECT CSS
-  var css = document.createElement("style");
-  css.type = "text/css";
-  css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
-  document.body.appendChild(css);
-};
+});
