@@ -4,121 +4,407 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Suriya Rajan — Data / DevOps / Cloud Engineer</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/reset.css" />
-  <link rel="stylesheet" href="css/main.css" />
-  <link rel="icon" href="favicon.ico" />
-  <meta name="description" content="Suriya Rajan — Data / DevOps / Cloud Engineer. Personal portfolio." />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta property="og:title" content="Suriya Rajan — Data / DevOps / Cloud Engineer" />
-  <meta property="og:url" content="https://suriyarajan.dev" />
-  <meta property="og:image" content="https://suriyarajan.dev/meta.jpg" />
-  <meta property="og:site_name" content="Suriya Rajan" />
+  <title>Suriya Rajan — Senior Data Engineer (AWS, Spark, Airflow)</title>
+  <meta name="description"
+    content="Senior data engineer with 9 years on AWS. Spark and Airflow pipelines at 500M+ events a day for media measurement and AdTech. Relocating to Warsaw, available in 30 days." />
+  <link rel="canonical" href="https://ayiruszone.github.io/" />
+  <meta name="author" content="Suriya Rajan" />
+  <meta name="theme-color" content="#F4F6F9" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0A101C" media="(prefers-color-scheme: dark)" />
+  <meta name="color-scheme" content="light dark" />
+
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="Suriya Rajan — Senior Data Engineer" />
   <meta property="og:description"
-    content="I'm a Data / DevOps / Cloud Engineer with a Bachelor's degree in Electrical &amp; Electronics Engineering and 5+ years of software development experience." />
+    content="9 years on AWS. Spark and Airflow at 500M+ events a day for media measurement and AdTech. Relocating to Warsaw." />
+  <meta property="og:url" content="https://ayiruszone.github.io/" />
+  <meta property="og:image" content="https://ayiruszone.github.io/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Suriya Rajan, senior data engineer, with a pipeline pace meter reading 5,787 events per second." />
+  <meta property="og:site_name" content="Suriya Rajan" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="preload" href="fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="css/main.css" />
+
   <script>
-    // Applied before paint to avoid a flash of the wrong theme.
-    (function () {
+    // Applied before first paint so the saved theme never flashes the wrong colours.
+    try {
       var saved = localStorage.getItem("theme");
-      var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      if (saved ? saved === "dark" : prefersDark) {
-        document.documentElement.classList.add("dark");
-      }
-    })();
+      if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved;
+    } catch (e) { }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Suriya Rajan",
+    "jobTitle": "Senior Data Engineer",
+    "url": "https://ayiruszone.github.io/",
+    "address": { "@type": "PostalAddress", "addressLocality": "Bangalore", "addressCountry": "IN" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "SASTRA University" },
+    "knowsLanguage": ["en", "ta"],
+    "knowsAbout": ["Apache Spark", "Apache Airflow", "AWS", "Data engineering", "Terraform", "Apache Iceberg"],
+    "sameAs": [
+      "https://www.linkedin.com/in/suriyarajan",
+      "https://github.com/AyirusZone",
+      "https://medium.com/@suriyarajan",
+      "https://www.credly.com/users/suriya-rajan/badges"
+    ]
+  }
   </script>
 </head>
 
 <body>
-  <input type="checkbox" class="checkbox" value="1" id="chk" />
-  <div class="sun-moon-container background" aria-hidden="true">
-    <svg class="sun" style="width:24px;height:24px" viewBox="0 0 24 24">
-      <path
-        d="M3.55,18.54L4.96,19.95L6.76,18.16L5.34,16.74M11,22.45C11.32,22.45 13,22.45 13,22.45V19.5H11M12,5.5A6,6 0 0,0 6,11.5A6,6 0 0,0 12,17.5A6,6 0 0,0 18,11.5C18,8.18 15.31,5.5 12,5.5M20,12.5H23V10.5H20M17.24,18.16L19.04,19.95L20.45,18.54L18.66,16.74M20.45,4.46L19.04,3.05L17.24,4.84L18.66,6.26M13,0.55H11V3.5H13M4,10.5H1V12.5H4M6.76,4.84L4.96,3.05L3.55,4.46L5.34,6.26L6.76,4.84Z" />
-    </svg>
-    <svg class="moon" style="width:24px;height:24px" viewBox="0 0 24 24">
-      <path
-        d="M17.75,4.09L15.22,6.03L16.13,9.09L13.5,7.28L10.87,9.09L11.78,6.03L9.25,4.09L12.44,4L13.5,1L14.56,4L17.75,4.09M21.25,11L19.61,12.25L20.2,14.23L18.5,13.06L16.8,14.23L17.39,12.25L15.75,11L17.81,10.95L18.5,9L19.19,10.95L21.25,11M18.97,15.95C19.8,15.87 20.69,17.05 20.16,17.8C19.84,18.25 19.5,18.67 19.08,19.07C15.17,23 8.84,23 4.94,19.07C1.03,15.17 1.03,8.83 4.94,4.93C5.34,4.53 5.76,4.17 6.21,3.85C6.96,3.32 8.14,4.21 8.06,5.04C7.79,7.9 8.75,10.87 10.95,13.06C13.14,15.26 16.1,16.22 18.97,15.95M17.33,17.97C14.5,17.81 11.7,16.64 9.53,14.5C7.36,12.31 6.2,9.5 6.04,6.68C3.23,9.82 3.34,14.64 6.35,17.66C9.37,20.67 14.19,20.78 17.33,17.97Z" />
-    </svg>
-  </div>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <label class="btn-toggle" for="chk">
-    <span class="sr-only">Toggle dark mode</span>
-    <svg class="icon" aria-hidden="true" style="width:28px;height:28px" viewBox="0 0 24 24">
-      <path fill="currentColor"
-        d="M7.5,2C5.71,3.15 4.5,5.18 4.5,7.5C4.5,9.82 5.71,11.85 7.53,13C4.46,13 2,10.54 2,7.5A5.5,5.5 0 0,1 7.5,2M19.07,3.5L20.5,4.93L4.93,20.5L3.5,19.07L19.07,3.5M12.89,5.93L11.41,5L9.97,6L10.39,4.3L9,3.24L10.75,3.12L11.33,1.47L12,3.1L13.73,3.13L12.38,4.26L12.89,5.93M9.59,9.54L8.43,8.81L7.31,9.59L7.65,8.27L6.56,7.44L7.92,7.35L8.37,6.06L8.88,7.33L10.24,7.36L9.19,8.23L9.59,9.54M19,13.5A5.5,5.5 0 0,1 13.5,19C12.28,19 11.15,18.6 10.24,17.93L17.93,10.24C18.6,11.15 19,12.28 19,13.5M14.6,20.08L17.37,18.93L17.13,22.28L14.6,20.08M18.93,17.38L20.08,14.61L22.28,17.15L18.93,17.38M20.08,12.42L18.94,9.64L22.28,9.88L20.08,12.42M9.63,18.93L12.4,20.08L9.87,22.27L9.63,18.93Z" />
-    </svg>
-  </label>
-
-  <header class="hero">
-    <p class="greeting"><span class="wave" role="img" aria-label="waving hand emoji">👋🏼</span>
-      <span class="txt-rotate" data-period="1000"
-        data-rotate='[ "Hello,", "नमस्ते,", "வணக்கம்", "నమస్కారం", "നമസ്തേ", "ನಮಸ್ತೆ"]'></span>
-    </p>
-    <h1>Suriya Rajan</h1>
-    <p class="role">Data / DevOps / Cloud Engineer</p>
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="brand" href="#top" aria-label="Suriya Rajan, back to top">Suriya Rajan</a>
+      <nav class="site-nav" aria-label="Sections">
+        <a href="#outcomes">Outcomes</a>
+        <a href="#experience">Experience</a>
+        <a href="#stack">Stack</a>
+        <a href="#credentials">Credentials</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="site-header__tools">
+        <button class="icon-btn" id="theme-toggle" type="button" aria-pressed="false">
+          <span class="sr-only">Dark mode</span>
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2" />
+            <path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor" />
+          </svg>
+        </button>
+        <a class="btn btn--small" href="Suriya_Rajan_CV.pdf" download>CV (PDF)</a>
+      </div>
+    </div>
   </header>
 
-  <main>
-    <div class="para">
-      <p>
-        I'm a Data / DevOps Engineer who thrives on creating solutions for
-        challenging problems. I enthusiastically follow the evolution of many
-        languages, cloud services, and tools and stay on top of best practices.
-      </p>
-      <p>
-        Knowledgeable in back-end development including technologies like
-        Scala, Spark, SQL, Python, and Git.
-      </p>
-      <p>
-        I can help you build a robust data application and pipelines, from
-        brainstorming ideas, designing systems, to actual implementation.
-      </p>
-      <p>
-        I love working with others and finding ways to improve existing products
-        and exploring new paradigms! I'm always eager to share my experiences and learn from others.
-      </p>
-    </div>
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="top">
+      <div class="hero__copy">
+        <p class="eyebrow"><span lang="ta">வணக்கம்</span> · Hello, I'm Suriya Rajan</p>
+        <h1 id="top">Senior data engineer for media measurement and AdTech.</h1>
+        <p class="lede">
+          Nine years on AWS building and tuning data platforms. Spark and Airflow at 500M+ events a day,
+          Terraform since 2019, and recent work in serverless integration, RAG chatbots and BI migration.
+        </p>
+        <div class="actions">
+          <a class="btn btn--primary" href="mailto:suriyarajan12@gmail.com">Email me</a>
+          <a class="btn" href="Suriya_Rajan_CV.pdf" download>Download CV (PDF)</a>
+        </div>
+        <ul class="facts" aria-label="Availability">
+          <li><span class="facts__label">Based in</span> Bangalore, India, relocating to Warsaw</li>
+          <li><span class="facts__label">Available</span> in 30 days</li>
+          <li><span class="facts__label">Work permit</span> Needs EU Blue Card or sponsorship</li>
+        </ul>
+      </div>
 
-    <nav class="social" aria-label="Social links">
-      <a href="https://in.linkedin.com/in/suriyarajan/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="https://github.com/AyirusZone" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a href="https://medium.com/@suriyarajan" target="_blank" rel="noopener noreferrer">Blog</a>
-      <a href="https://www.credly.com/users/suriya-rajan/badges" target="_blank" rel="noopener noreferrer">Credly</a>
-    </nav>
+      <div class="meter" role="group" aria-labelledby="meter-title">
+        <p class="meter__label" id="meter-title">Pipeline pace</p>
+        <p class="meter__rate">
+          <span class="meter__num">5,787</span>
+          <span class="meter__unit">events per second</span>
+        </p>
+        <div class="meter__lane" aria-hidden="true"></div>
+        <p class="meter__total" id="meter-total-row">
+          Since you opened this page
+          <span class="meter__count" id="meter-total" aria-hidden="true">0</span>
+          <span>events</span>
+        </p>
+        <p class="meter__note">
+          A simulation of 500M+ events a day, the volume of the Nielsen Connected TV ad-ratings platform
+          I owned. Not live data.
+        </p>
+      </div>
+    </section>
+
+    <section class="section wrap" id="outcomes" aria-labelledby="outcomes-title">
+      <header class="section__head">
+        <p class="kicker">Outcomes</p>
+        <h2 id="outcomes-title">What changed because of the work</h2>
+      </header>
+      <ul class="ledger">
+        <li>
+          <strong class="ledger__result">40% lower compute cost</strong>
+          <span class="ledger__what">Hourly Spark jobs moved from 5-node r4.4xlarge EMR clusters to EMR Serverless, billed only for job runtime.</span>
+          <span class="ledger__where">Nielsen</span>
+        </li>
+        <li>
+          <strong class="ledger__result">30%+ faster Spark jobs</strong>
+          <span class="ledger__what">15+ Spark 2.x ETL jobs upgraded to 3.x with Adaptive Query Execution and dynamic partition pruning, using less memory.</span>
+          <span class="ledger__where">Nielsen</span>
+        </li>
+        <li>
+          <strong class="ledger__result">2 weeks to 2–3 days</strong>
+          <span class="ledger__what">Time to onboard a new retailer, after automating it with PySpark ETL and GitHub Actions CI/CD. Deployment time halved.</span>
+          <span class="ledger__where">PDI Technologies</span>
+        </li>
+        <li>
+          <strong class="ledger__result">60% less manual intervention</strong>
+          <span class="ledger__what">Airflow orchestration rebuilt across 50+ retailer pipelines. Earlier, a 40% cut on Nielsen CTV workflows.</span>
+          <span class="ledger__where">PDI, TCS</span>
+        </li>
+        <li>
+          <strong class="ledger__result">25% higher throughput</strong>
+          <span class="ledger__what">SQL and ETL tuning on data flows between on-premises systems and AWS, so downstream reports landed sooner.</span>
+          <span class="ledger__where">TCS (Nielsen)</span>
+        </li>
+        <li>
+          <strong class="ledger__result">500M+ events a day</strong>
+          <span class="ledger__what">Owned the platform: two daily pipelines at 1–1.5 TB each, plus 3–5 ad hoc pipelines of 50–300 GB.</span>
+          <span class="ledger__where">Nielsen</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="section wrap" id="experience" aria-labelledby="experience-title">
+      <header class="section__head">
+        <p class="kicker">Experience</p>
+        <h2 id="experience-title">Five roles, newest first</h2>
+        <p class="section__note">
+          Drawn as Airflow task states:
+          <span class="state-key state-key--running">running</span> is where I am now,
+          <span class="state-key state-key--success">success</span> is a role completed.
+        </p>
+      </header>
+
+      <ol class="dag">
+        <li class="task task--running">
+          <div class="task__meta">
+            <p class="task__state">Running</p>
+            <p class="task__dates"><time datetime="2026-04">Apr 2026</time> – Present</p>
+            <p class="task__place">Remote</p>
+          </div>
+          <div class="task__rail" aria-hidden="true"></div>
+          <article class="task__body">
+            <h3>Senior Data Engineer</h3>
+            <p class="task__org">Lancesoft, client Warner Bros. Discovery</p>
+            <p class="task__lead">
+              Client title: Data Engineer IV. Sole data engineer on the Market Research GenAI and MicroStrategy
+              migration work, and technical lead for the Nordic middleware.
+            </p>
+            <ul>
+              <li>Designed a serverless REST middleware on Amazon API Gateway for WBD's Nordic AdTech platform, replacing manual work by business staff. In pilot with 3 external vendors. Mentored a junior developer on architecture and system design throughout the build.</li>
+              <li>Proposed and built a RAG chatbot for the Market Research team over 500+ documents (FAISS, embeddings, 3B LLM). Prototyped on EC2, then moved to Amazon Quick Suite with chat personas and dashboards. Approved in UAT, go-live planned for November 2026.</li>
+              <li>Leading the migration of about 400 MicroStrategy reports to Amazon Quick Suite, moving needed datasets from Oracle to Apache Iceberg. First 50 priority reports due within a month.</li>
+              <li>Defined SLA, observability and cost-control standards with the Nordic engineering teams.</li>
+            </ul>
+          </article>
+        </li>
+
+        <li class="task task--success">
+          <div class="task__meta">
+            <p class="task__state">Success</p>
+            <p class="task__dates"><time datetime="2023-06">Jun 2023</time> – <time datetime="2026-02">Feb 2026</time></p>
+            <p class="task__place">Bangalore</p>
+          </div>
+          <div class="task__rail" aria-hidden="true"></div>
+          <article class="task__body">
+            <h3>Data Engineer (Member of Technical Staff II)</h3>
+            <p class="task__org">Nielsen, DAR CTV</p>
+            <ul>
+              <li>Owned the AWS data platform (EMR Serverless, S3, Airflow) behind Nielsen's Connected TV Digital Ad Ratings, covering ingestion, transformation and reporting for 500M+ daily events. Scope: 2 major daily pipelines at 1 to 1.5 TB each, plus 3 to 5 ad hoc pipelines of 50 to 300 GB.</li>
+              <li>Cut compute cost by 40% by moving hourly Spark jobs from 5-node r4.4xlarge EMR clusters (billed for spin-up and spin-down) to EMR Serverless, which charges only for job runtime. Also right-sized executors and tuned dynamic allocation.</li>
+              <li>Upgraded 15+ Spark 2.x ETL jobs to Spark 3.x and enabled Adaptive Query Execution and dynamic partition pruning, making runs at least 30% faster with lower memory use.</li>
+              <li>Redesigned the Airflow DAGs for CTV ingestion with retries and structured alerting, which improved SLA adherence and shortened recovery time after failures.</li>
+              <li>Implemented data-quality checks and schema validation so bad upstream data stopped before it reached reporting.</li>
+              <li>Mentored 4 junior engineers and an intern on distributed design, Spark internals and Airflow, and helped experienced new joiners ramp up on the platform and start delivering quickly.</li>
+            </ul>
+          </article>
+        </li>
+
+        <li class="task task--success">
+          <div class="task__meta">
+            <p class="task__state">Success</p>
+            <p class="task__dates"><time datetime="2021-12">Dec 2021</time> – <time datetime="2023-06">Jun 2023</time></p>
+            <p class="task__place">Remote</p>
+          </div>
+          <div class="task__rail" aria-hidden="true"></div>
+          <article class="task__body">
+            <h3>Data Engineer II, Retailer Onboarding</h3>
+            <p class="task__org">PDI Technologies</p>
+            <ul>
+              <li>Automated retailer onboarding with PySpark ETL pipelines and GitHub Actions CI/CD, cutting the time to onboard a new retailer from about 2 weeks to 2 to 3 days and halving deployment time.</li>
+              <li>Migrated terabyte-scale retail datasets from on-premises to AWS (S3, EMR, Glue) with no downtime and no loss of data integrity.</li>
+              <li>Re-platformed legacy ingestion for 50+ retailer pipelines onto serverless AWS services, improving fault tolerance and availability.</li>
+              <li>Rebuilt Airflow orchestration, cutting manual pipeline intervention by 60%.</li>
+              <li>Added CloudWatch monitoring and structured logging, so the team caught problems earlier and resolved incidents faster.</li>
+            </ul>
+          </article>
+        </li>
+
+        <li class="task task--success">
+          <div class="task__meta">
+            <p class="task__state">Success</p>
+            <p class="task__dates"><time datetime="2019-08">Aug 2019</time> – <time datetime="2021-12">Dec 2021</time></p>
+            <p class="task__place">Chennai</p>
+          </div>
+          <div class="task__rail" aria-hidden="true"></div>
+          <article class="task__body">
+            <h3>System Engineer, DAR CTV</h3>
+            <p class="task__org">Tata Consultancy Services, for Nielsen</p>
+            <ul>
+              <li>Ran production CTV analytics pipelines for Nielsen Digital Ad Ratings across 10+ streaming channels, keeping to SLAs and data accuracy targets.</li>
+              <li>Designed the Airflow framework for the CTV rebuild, and wrote Scala utilities and Git-based CI/CD for JAR build, test and deployment.</li>
+              <li>Automated workflows in Airflow, cutting manual intervention by 40% and reducing processing errors.</li>
+              <li>Onboarded the CTV infrastructure to Infrastructure as Code with Terraform in 2019, and kept using it as the standard way to provision since then.</li>
+            </ul>
+          </article>
+        </li>
+
+        <li class="task task--success">
+          <div class="task__meta">
+            <p class="task__state">Success</p>
+            <p class="task__dates"><time datetime="2017-08">Aug 2017</time> – <time datetime="2019-08">Aug 2019</time></p>
+            <p class="task__place">Chennai</p>
+          </div>
+          <div class="task__rail" aria-hidden="true"></div>
+          <article class="task__body">
+            <h3>Assistant System Engineer, CORE DAR</h3>
+            <p class="task__org">Tata Consultancy Services, for Nielsen</p>
+            <ul>
+              <li>Built data flows between Nielsen's on-premises systems and AWS for Watch Analytics, so measurement data kept moving during the transition.</li>
+              <li>Tuned SQL queries and ETL jobs, raising throughput by 25% and getting downstream reports out sooner.</li>
+              <li>Migrated a 10-person team from SVN to Git and set branching rules that reduced merge conflicts.</li>
+            </ul>
+          </article>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section wrap" id="stack" aria-labelledby="stack-title">
+      <header class="section__head">
+        <p class="kicker">Stack</p>
+        <h2 id="stack-title">Tools I work with</h2>
+      </header>
+      <dl class="stack">
+        <div class="stack__row">
+          <dt>Data engineering</dt>
+          <dd><ul>
+              <li>Apache Spark 2.x/3.x</li><li>PySpark</li><li>Scala</li><li>Apache Airflow</li><li>ETL/ELT</li><li>Data modelling</li><li>Data quality</li><li>Governance</li><li>Observability</li><li>SLA management</li>
+            </ul></dd>
+        </div>
+        <div class="stack__row">
+          <dt>AWS</dt>
+          <dd><ul>
+              <li>EMR</li><li>EMR Serverless</li><li>Glue</li><li>Lambda</li><li>API Gateway</li><li>SQS</li><li>S3</li><li>Athena</li><li>CloudWatch</li><li>IAM</li><li>VPC</li><li>EC2</li><li>Amazon Bedrock</li><li>Amazon Quick Suite</li>
+            </ul></dd>
+        </div>
+        <div class="stack__row">
+          <dt>Lakehouse and BI</dt>
+          <dd><ul><li>Apache Iceberg</li><li>Oracle</li><li>PostgreSQL</li><li>MicroStrategy</li></ul></dd>
+        </div>
+        <div class="stack__row">
+          <dt>Languages</dt>
+          <dd><ul><li>Python</li><li>Scala</li><li>SQL</li><li>Bash</li></ul></dd>
+        </div>
+        <div class="stack__row">
+          <dt>DevOps</dt>
+          <dd><ul>
+              <li>Terraform (IaC since 2019)</li><li>AWS CloudFormation (working knowledge)</li><li>GitHub Actions</li><li>GitLab CI</li><li>Git</li><li>Docker (home lab)</li><li>Serverless design</li>
+            </ul></dd>
+        </div>
+        <div class="stack__row">
+          <dt>GenAI</dt>
+          <dd><ul><li>RAG</li><li>LLMs</li><li>FAISS</li><li>Embeddings</li></ul></dd>
+        </div>
+        <div class="stack__row">
+          <dt>Hadoop ecosystem</dt>
+          <dd><ul><li>Cloudera</li><li>Hive</li><li>Oozie</li><li>HDFS</li><li>Unix</li></ul></dd>
+        </div>
+        <div class="stack__row">
+          <dt>Foundational knowledge</dt>
+          <dd><ul><li>Amazon Kinesis</li><li>Databricks</li><li>Snowflake</li><li>Amazon Redshift</li><li>dbt</li><li>Kubernetes</li></ul></dd>
+        </div>
+        <div class="stack__row">
+          <dt>Domains</dt>
+          <dd><ul><li>AdTech</li><li>Media measurement</li><li>CTV and OTT ad ratings</li><li>Retail data onboarding</li></ul></dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="section wrap" id="credentials" aria-labelledby="credentials-title">
+      <header class="section__head">
+        <p class="kicker">Credentials</p>
+        <h2 id="credentials-title">Project, certifications, education</h2>
+      </header>
+
+      <div class="cred-grid">
+        <article class="card card--project">
+          <p class="card__tag">Project · <time datetime="2026-06">Jun 2026</time></p>
+          <h3>SathyaMool.ai</h3>
+          <p class="card__sub">AI for Bharat Hackathon, Hack2skill. Selected for the prototype stage of the national programme.</p>
+          <p>
+            A serverless AWS platform that uses generative AI to verify Indian property documents. Built with
+            Amazon Textract, Translate and Bedrock, plus Lambda, API Gateway, SQS, DynamoDB, S3 and AWS CDK.
+          </p>
+          <a class="link-arrow" href="https://github.com/AyirusZone/SathyaMool.ai" target="_blank" rel="noopener noreferrer">View repository on GitHub<span class="sr-only"> (opens in a new tab)</span></a>
+        </article>
+
+        <div class="cred-col">
+          <h3 class="cred-col__title">Certifications</h3>
+          <ul class="certs">
+            <li>
+              <strong>AWS Certified AI Practitioner</strong>
+              <span>Amazon Web Services · <time datetime="2026-01">Jan 2026</time>, valid to <time datetime="2029-01">Jan 2029</time></span>
+            </li>
+            <li>
+              <strong>AWS Certified Solutions Architect – Associate</strong>
+              <span>Amazon Web Services · <time datetime="2024-12">Dec 2024</time>, valid to <time datetime="2027-12">Dec 2027</time></span>
+            </li>
+            <li>
+              <strong>Apache Airflow 3 Fundamentals</strong>
+              <span>Astronomer · <time datetime="2025-07">Jul 2025</time></span>
+            </li>
+            <li>
+              <strong>Airflow DAG Authoring and Fundamentals</strong>
+              <span>Astronomer · <time datetime="2021-10">Oct 2021</time></span>
+            </li>
+          </ul>
+          <a class="link-arrow" href="https://www.credly.com/users/suriya-rajan/badges" target="_blank" rel="noopener noreferrer">Verify badges on Credly<span class="sr-only"> (opens in a new tab)</span></a>
+
+          <h3 class="cred-col__title">Education</h3>
+          <p class="edu"><strong>B.Tech, Electrical and Electronics Engineering</strong><br />SASTRA University, Tamil Nadu, India · 2017</p>
+
+          <h3 class="cred-col__title">Languages</h3>
+          <p class="edu"><span lang="en">English</span> (C1–C2, fluent) · <span lang="ta">Tamil</span> (native)</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap contact" id="contact" aria-labelledby="contact-title">
+      <header class="section__head">
+        <p class="kicker">Contact</p>
+        <h2 id="contact-title">Hiring for data platform roles in the EU?</h2>
+      </header>
+      <a class="contact__mail" href="mailto:suriyarajan12@gmail.com">suriyarajan12@gmail.com</a>
+      <p class="contact__note">
+        Available in 30 days. Relocating to Warsaw. Requires EU Blue Card or work permit sponsorship.
+      </p>
+      <ul class="contact__links">
+        <li><a href="https://www.linkedin.com/in/suriyarajan" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr-only"> (opens in a new tab)</span></a></li>
+        <li><a href="https://github.com/AyirusZone" target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> (opens in a new tab)</span></a></li>
+        <li><a href="https://medium.com/@suriyarajan" target="_blank" rel="noopener noreferrer">Blog on Medium<span class="sr-only"> (opens in a new tab)</span></a></li>
+        <li><a href="Suriya_Rajan_CV.pdf" download>Download CV (PDF)</a></li>
+      </ul>
+    </section>
   </main>
 
-  <section class="work" id="work" aria-labelledby="work-heading">
-    <h2 id="work-heading">Selected work</h2>
-    <p class="work-note">Placeholder — replace these cards with real projects before publishing.</p>
-    <div class="work-grid">
-      <article class="work-card">
-        <h3>Project name</h3>
-        <p>One line on what it does and the outcome it drove.</p>
-        <p class="work-tags">Tag · Tag · Tag</p>
-      </article>
-      <article class="work-card">
-        <h3>Project name</h3>
-        <p>One line on what it does and the outcome it drove.</p>
-        <p class="work-tags">Tag · Tag · Tag</p>
-      </article>
-      <article class="work-card">
-        <h3>Project name</h3>
-        <p>One line on what it does and the outcome it drove.</p>
-        <p class="work-tags">Tag · Tag · Tag</p>
-      </article>
+  <footer class="site-footer">
+    <div class="wrap site-footer__inner">
+      <p>© 2026 Suriya Rajan</p>
+      <p>No cookies, no analytics, fonts hosted on this site.</p>
     </div>
-  </section>
-
-  <footer class="contact" id="contact">
-    <h2>Get in touch</h2>
-    <p>Placeholder — add your email address or a resume link here.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 
 </html>
