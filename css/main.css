@@ -411,14 +411,10 @@ h1 {
   box-shadow: 0 40px 90px -40px color-mix(in srgb, var(--accent) 55%, transparent);
 }
 
-.meter__label,
-.meter__note {
+.meter__label {
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   color: var(--muted);
-}
-
-.meter__label {
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -476,17 +472,12 @@ h1 {
   color: var(--ink);
 }
 
-.meter__note {
-  margin-top: 1.25rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--line);
-  line-height: 1.5;
-}
-
 .meter__facts {
   display: grid;
   gap: 0.15rem;
-  margin-top: 1rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
   font-size: 0.9375rem;
 }
 
@@ -998,6 +989,16 @@ h2 {
   border-top: 1px solid var(--line);
   font-size: 0.875rem;
   color: var(--muted);
+}
+
+.site-footer code {
+  padding: 0.1rem 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--ink);
 }
 
 .site-footer__inner {
