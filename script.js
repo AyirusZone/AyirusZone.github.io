@@ -24,29 +24,29 @@
   syncToggle();
 })();
 
-// Pipeline pace meter: 500M events a day is about 5,787 events a second.
+// Experience meter: counts from my first day at TCS (8 August 2017, UTC).
 (function () {
-  var EVENTS_PER_SECOND = 500000000 / 86400;
-  var total = document.getElementById('meter-total');
-  var row = document.getElementById('meter-total-row');
+  var START = Date.UTC(2017, 7, 8);
+  var daysEl = document.getElementById('meter-days');
+  var unitEl = document.getElementById('meter-unit');
+  var row = document.getElementById('meter-seconds-row');
+  var secondsEl = document.getElementById('meter-seconds');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var format = new Intl.NumberFormat();
+
+  function paint() {
+    var seconds = Math.floor((Date.now() - START) / 1000);
+    daysEl.textContent = format.format(Math.floor(seconds / 86400));
+    unitEl.textContent = 'days in data engineering';
+    secondsEl.textContent = format.format(seconds);
+  }
+
+  paint();
 
   if (reduceMotion) {
-    row.hidden = true;
     return;
   }
 
-  var format = new Intl.NumberFormat();
-  var start = performance.now();
-  var lastPaint = 0;
-
-  function frame(now) {
-    if (now - lastPaint >= 100) {
-      lastPaint = now;
-      total.textContent = format.format(Math.floor((now - start) / 1000 * EVENTS_PER_SECOND));
-    }
-    requestAnimationFrame(frame);
-  }
-
-  requestAnimationFrame(frame);
+  row.hidden = false;
+  setInterval(paint, 250);
 })();
