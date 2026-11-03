@@ -1,3 +1,12 @@
+html {
+  --mx: 72;
+  --my: 18;
+  --cx: -80;
+  --cy: -80;
+  --ch: 1;
+  --sc: 0;
+}
+
 /* Ambient background (depth 0) ****************************** */
 
 .ambient {
@@ -9,6 +18,20 @@
     radial-gradient(60rem 40rem at 88% -8%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 62%),
     radial-gradient(50rem 36rem at -12% 42%, color-mix(in srgb, var(--accent-2) 14%, transparent), transparent 62%),
     radial-gradient(42rem 30rem at 72% 112%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 62%);
+}
+
+.ambient::before {
+  content: "";
+  position: absolute;
+  width: min(52rem, 90vw);
+  height: min(52rem, 90vw);
+  left: calc(var(--mx, 50) * 1%);
+  top: calc(var(--my, 18) * 1%);
+  translate: -50% -50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 28%, transparent), transparent 72%);
+  opacity: 0.55;
+  filter: blur(8px);
+  transition: opacity 0.4s;
 }
 
 .ambient::after {
@@ -64,6 +87,7 @@
   height: 90%;
   background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 30%, transparent), transparent);
   animation: drift 16s ease-in-out infinite alternate;
+  translate: calc((var(--mx, 50) - 50) * 0.18%) calc((var(--my, 40) - 40) * 0.14% + var(--sc, 0) * -6%);
 }
 
 @keyframes drift {
@@ -74,13 +98,15 @@
 
 .hero__grid {
   position: absolute;
-  inset: 0;
+  inset: -8%;
   opacity: 0.5;
   background-image:
     linear-gradient(var(--line) 1px, transparent 1px),
     linear-gradient(90deg, var(--line) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: radial-gradient(ellipse 70% 80% at 70% 30%, #000 5%, transparent 75%);
+  transform: translate3d(calc((var(--mx, 50) - 50) * -0.35px), calc((var(--my, 40) - 40) * -0.28px), 0);
+  will-change: transform;
 }
 
 #flow {
@@ -122,12 +148,16 @@
   font-size: clamp(2rem, 1.2rem + 3.4vw, 4.25rem);
   letter-spacing: -0.02em;
   line-height: 1.2;
-  animation: marquee 60s linear infinite;
+  animation: marquee 28s linear infinite;
 }
 
 .marquee__row--rev .marquee__track {
   animation-direction: reverse;
-  animation-duration: 70s;
+  animation-duration: 34s;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
 }
 
 .marquee__track .o {
@@ -145,14 +175,17 @@
 
 .js .reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  filter: blur(10px);
+  transform: translate3d(0, 36px, 0) rotateX(8deg);
+  transform-origin: 50% 100%;
+  transition: opacity 0.85s ease, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
   transition-delay: calc(var(--i, 0) * 70ms);
 }
 
 .js .reveal.in {
   opacity: 1;
-  transform: none;
+  filter: none;
+  transform: translate3d(0, 0, 0) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
 }
 
 /* Results: bento cards, bars, blocks ****************************** */
@@ -161,6 +194,27 @@
   display: grid;
   gap: 1rem;
   grid-template-columns: 1fr;
+}
+
+@media (max-width: 43.99rem) {
+  .bento {
+    grid-auto-flow: column;
+    grid-auto-columns: min(86vw, 22rem);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 0.15rem var(--gutter) 0.85rem;
+    gap: 0.75rem;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .rcard {
+    scroll-snap-align: start;
+    min-height: 100%;
+  }
 }
 
 @media (min-width: 44rem) {
@@ -176,6 +230,9 @@
 }
 
 .rcard {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -183,13 +240,29 @@
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: color-mix(in srgb, var(--surface) 80%, transparent);
+  transform-style: preserve-3d;
+}
+
+.rcard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(22rem circle at var(--lx, 50%) var(--ly, 0%), color-mix(in srgb, var(--accent) 22%, transparent), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.35s;
 }
 
 .rcard.in:hover {
   border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
-  transform: translateY(-3px);
+  transform: translate3d(0, -6px, 0) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   transition-delay: 0s;
-  box-shadow: 0 26px 60px -34px color-mix(in srgb, var(--accent) 65%, transparent);
+  box-shadow: 0 32px 70px -30px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+.rcard.in:hover::after {
+  opacity: 1;
 }
 
 .rcard__head {
@@ -412,14 +485,37 @@
 
 .arch__row {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.25rem;
+  grid-auto-flow: column;
+  grid-auto-columns: min(70vw, 14rem);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  gap: 0.5rem;
+  padding-bottom: 0.35rem;
+  scrollbar-width: thin;
+}
+
+.arch__row .stage {
+  scroll-snap-align: start;
+}
+
+.arch__link {
+  display: none;
 }
 
 @media (min-width: 52rem) {
   .arch__row {
+    grid-auto-flow: row;
+    grid-auto-columns: unset;
     grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+    overflow: visible;
+    scroll-snap-type: none;
     gap: 0.5rem;
+    padding-bottom: 0;
+  }
+
+  .arch__link {
+    display: grid;
   }
 }
 
@@ -748,6 +844,16 @@
 }
 
 @media (max-width: 51.99rem) {
+  .tl {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tl__row {
+    min-width: 36rem;
+  }
+
   .tl__mark span {
     display: none;
   }
@@ -761,9 +867,159 @@
   }
 
   .tl__bar {
-    font-size: 0;
+    font-size: 0.625rem;
   }
 }
+
+/* Motion max: cursor, kinetic title, magnetic, 3D tilt ****************************** */
+
+.cursor {
+  display: none;
+}
+
+@media (pointer: fine) {
+  html.motion-ok .cursor {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 80;
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+    translate: calc(var(--cx, -100) * 1px - 50%) calc(var(--cy, -100) * 1px - 50%);
+  }
+
+  html.motion-ok .cursor i,
+  html.motion-ok .cursor b {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+  }
+
+  html.motion-ok .cursor i {
+    background: color-mix(in srgb, var(--accent) 90%, white);
+    box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 70%, transparent);
+  }
+
+  html.motion-ok .cursor b {
+    inset: -18px;
+    border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+    scale: var(--ch, 1);
+    opacity: 0.7;
+    transition: scale 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  html.motion-ok.cursor-on a,
+  html.motion-ok.cursor-on button,
+  html.motion-ok.cursor-on summary {
+    cursor: none;
+  }
+}
+
+.js .hero__title .w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.js .hero__title .w > span {
+  display: inline-block;
+  transform: translate3d(0, 115%, 0) rotateX(-40deg);
+  transform-origin: 50% 100%;
+}
+
+.js .hero.is-ready .hero__title .w > span {
+  transform: none;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(80ms + var(--i, 0) * 55ms);
+}
+
+.js .hero .eyebrow,
+.js .hero .lede,
+.js .hero .actions,
+.js .hero .pills,
+.js .hero .meter {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+}
+
+.js .hero.is-ready .eyebrow,
+.js .hero.is-ready .lede,
+.js .hero.is-ready .actions,
+.js .hero.is-ready .pills,
+.js .hero.is-ready .meter {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.8s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.js .hero.is-ready .eyebrow { transition-delay: 0.05s; }
+.js .hero.is-ready .lede { transition-delay: 0.45s; }
+.js .hero.is-ready .actions { transition-delay: 0.58s; }
+.js .hero.is-ready .pills { transition-delay: 0.7s; }
+.js .hero.is-ready .meter {
+  transition-delay: 0.28s;
+  transform: translate3d(0, calc(var(--sc, 0) * 40px), 0) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+}
+
+.js .hero.is-ready .hero__copy {
+  transform: translate3d(0, calc(var(--sc, 0) * -28px), 0);
+}
+
+.hero__inner,
+.bento {
+  perspective: 1200px;
+}
+
+.magnetic {
+  will-change: transform;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.2s;
+}
+
+.meter {
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+html.motion-ok .meter {
+  box-shadow:
+    0 40px 90px -40px color-mix(in srgb, var(--accent) 55%, transparent),
+    calc((var(--mx, 50) - 50) * -0.2px) calc((var(--my, 40) - 40) * 0.15px) 40px -20px color-mix(in srgb, var(--accent-2) 35%, transparent);
+}
+
+.dock a.is-active svg {
+  animation: dock-pop 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes dock-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.28) rotate(-8deg); }
+  100% { transform: scale(1); }
+}
+
+.site-nav a {
+  position: relative;
+}
+
+.pills li {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s, background-color 0.2s;
+}
+
+.pills li:hover {
+  transform: translateY(-3px) scale(1.03);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+}
+
+.tile {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s, box-shadow 0.3s;
+}
+
+.tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 50px -32px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
 
 /* Reduced motion ****************************** */
 
@@ -773,6 +1029,15 @@
   .arch__link path:first-child,
   .js .panel:not([hidden]) {
     animation: none;
+  }
+
+  .story::details-content {
+    transition: none;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
   }
 
   .marquee__track {
@@ -788,10 +1053,28 @@
   }
 
   .js .reveal,
-  .js .reveal.in {
+  .js .reveal.in,
+  .js .hero .eyebrow,
+  .js .hero .lede,
+  .js .hero .actions,
+  .js .hero .pills,
+  .js .hero .meter,
+  .js .hero.is-ready .eyebrow,
+  .js .hero.is-ready .lede,
+  .js .hero.is-ready .actions,
+  .js .hero.is-ready .pills,
+  .js .hero.is-ready .meter,
+  .js .hero__title .w > span,
+  .js .hero.is-ready .hero__title .w > span {
     opacity: 1;
+    filter: none;
     transform: none;
     transition: none;
+  }
+
+  .cursor,
+  .ambient::before {
+    display: none;
   }
 
   .js .bar__track i,

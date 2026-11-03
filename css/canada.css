@@ -1,0 +1,423 @@
+/* Canadian design language spinoff
+   Informed by GC Design System / Canada.ca (tokens, type roles, red title bar, navy band)
+   without copying the official Canada wordmark. */
+
+:root {
+  color-scheme: light dark;
+
+  --paper: light-dark(#ffffff, #0a1829);
+  --surface: light-dark(#f2f2f2, #143152);
+  --surface-2: light-dark(#e6e6e6, #193d66);
+  --ink: light-dark(#333333, #f2f2f2);
+  --muted: light-dark(#4d4d4d, #adcaeb);
+  --line: light-dark(#d9d9d9, #1f497a);
+  --accent: light-dark(#a62a1e, #e8b4ad);
+  --accent-ink: #ffffff;
+  --accent-2: light-dark(#26374a, #85afe0);
+  --link: light-dark(#284162, #99bde6);
+  --link-hover: light-dark(#0535d2, #c2d7f0);
+  --success: light-dark(#1f7a40, #5cd689);
+  --running: #ffc72c;
+  --viz-before: light-dark(#737373, #5c95d6);
+  --viz-after: light-dark(#a62a1e, #e8b4ad);
+
+  --font-display: "Bricolage Grotesque", "Lato", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Instrument Sans", "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+
+  --step-0: 1.25rem;
+  --step-1: 1.25rem;
+  --step-2: clamp(1.5rem, 1.3rem + 0.8vw, 1.81rem);
+  --step-3: clamp(2rem, 1.6rem + 1.6vw, 2.44rem);
+  --step-4: clamp(2.25rem, 1.6rem + 2.4vw, 2.56rem);
+
+  --radius: 6px;
+  --radius-lg: 6px;
+}
+
+body {
+  line-height: 1.6;
+  font-size: 1.25rem;
+}
+
+:focus-visible {
+  outline: 3px solid #26374a;
+  outline-offset: 2px;
+  border-radius: 0;
+}
+
+html[data-theme="dark"] :focus-visible {
+  outline-color: #85afe0;
+}
+
+/* Signature strip (flag red, not the official wordmark) ****************************** */
+
+.sig {
+  background: #ffffff;
+  color: #333;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.sig__rule {
+  height: 6px;
+  background: #a62a1e;
+}
+
+.sig__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3.5rem;
+}
+
+.sig__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  color: #26374a;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.sig__brand svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: #a62a1e;
+}
+
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 1rem;
+}
+
+.lang-switch button {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0.35rem 0.2rem;
+  color: #284162;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.lang-switch button[aria-pressed="true"] {
+  color: #333;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: default;
+}
+
+html[data-theme="dark"] .sig {
+  background: #0a1829;
+  color: #f2f2f2;
+  border-bottom-color: #1f497a;
+}
+
+html[data-theme="dark"] .sig__brand {
+  color: #f2f2f2;
+}
+
+html[data-theme="dark"] .lang-switch button {
+  color: #99bde6;
+}
+
+html[data-theme="dark"] .lang-switch button[aria-pressed="true"] {
+  color: #f2f2f2;
+}
+
+/* Header / nav: institutional, not pills ****************************** */
+
+.site-header {
+  background: #ffffff;
+  color: #333333;
+  backdrop-filter: none;
+  border-bottom: 4px solid #26374a;
+}
+
+html[data-theme="dark"] .site-header {
+  background: #0a1829;
+  border-bottom-color: #85afe0;
+}
+
+.site-nav a {
+  border-radius: 0;
+  color: #284162;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.site-nav a:hover,
+.site-nav a.is-active {
+  color: #0535d2;
+  background: transparent;
+  text-decoration-thickness: 2px;
+}
+
+html[data-theme="dark"] .site-nav a {
+  color: #99bde6;
+}
+
+html[data-theme="dark"] .site-nav a:hover,
+html[data-theme="dark"] .site-nav a.is-active {
+  color: #c2d7f0;
+}
+
+.brand {
+  font-stretch: 100%;
+  letter-spacing: 0.02em;
+  color: #26374a;
+}
+
+/* Buttons: GC-like rectangles ****************************** */
+
+.btn {
+  border-radius: 6px;
+  border-width: 2px;
+  font-weight: 500;
+}
+
+.btn--primary {
+  background: light-dark(#26374a, #a62a1e);
+  border-color: light-dark(#26374a, #a62a1e);
+  color: #fff;
+  box-shadow: none;
+}
+
+.btn--primary:hover {
+  background: light-dark(#1c2a38, #8b2218);
+  border-color: light-dark(#1c2a38, #8b2218);
+  color: #fff;
+}
+
+.btn:not(.btn--primary) {
+  border-color: light-dark(#26374a, #85afe0);
+  color: light-dark(#26374a, #eaf0fa);
+}
+
+.btn:not(.btn--primary):hover {
+  background: light-dark(#26374a, #85afe0);
+  color: light-dark(#fff, #0a1829);
+}
+
+.icon-btn {
+  border-radius: 6px;
+}
+
+/* Type: Canada.ca title bar under H1 ****************************** */
+
+h1,
+h2,
+h3 {
+  font-stretch: 100%;
+  letter-spacing: 0;
+}
+
+.hero__title {
+  max-width: 22ch;
+}
+
+.hero__title::after {
+  content: "";
+  display: block;
+  width: 72px;
+  height: 6px;
+  margin-top: 0.2em;
+  background: #a62a1e;
+  opacity: 0;
+}
+
+.hero.is-ready .hero__title::after {
+  opacity: 1;
+  transition: opacity 0.4s 0.5s;
+}
+
+.grad {
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  color: #a62a1e;
+}
+
+html[data-theme="dark"] .grad {
+  color: #e8b4ad;
+}
+
+.kicker {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: #26374a;
+}
+
+.kicker::before {
+  width: 36px;
+  height: 4px;
+  background: #a62a1e;
+}
+
+html[data-theme="dark"] .kicker {
+  color: #85afe0;
+}
+
+.lede,
+.section__note {
+  max-width: 65ch;
+}
+
+/* Cards: left maple-red rule ****************************** */
+
+.rcard,
+.meter,
+.tile,
+.contact__card,
+.project {
+  border-radius: 6px;
+  border-left: 4px solid #a62a1e;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.rcard.in:hover,
+.tile:hover {
+  transform: none;
+  box-shadow: 0 4px 16px color-mix(in srgb, #26374a 16%, transparent);
+}
+
+.meter {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 4px solid #a62a1e;
+}
+
+.pills li {
+  border-radius: 6px;
+}
+
+/* Hero / ambient: winter light, aurora only in dark ****************************** */
+
+.ambient {
+  background:
+    radial-gradient(50rem 32rem at 100% 0%, color-mix(in srgb, #a62a1e 8%, transparent), transparent 60%),
+    radial-gradient(40rem 28rem at 0% 80%, color-mix(in srgb, #26374a 10%, transparent), transparent 62%);
+}
+
+html[data-theme="dark"] .ambient {
+  background:
+    radial-gradient(50rem 36rem at 80% -10%, color-mix(in srgb, #3ddbc8 16%, transparent), transparent 62%),
+    radial-gradient(42rem 30rem at 10% 40%, color-mix(in srgb, #a62a1e 18%, transparent), transparent 60%),
+    radial-gradient(36rem 24rem at 90% 100%, color-mix(in srgb, #26374a 40%, transparent), transparent 60%);
+}
+
+.hero {
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+}
+
+/* Footer: navy main band ****************************** */
+
+.site-footer {
+  background: #26374a;
+  color: #fff;
+  border-top: 0;
+  margin-top: 2rem;
+}
+
+.site-footer a {
+  color: #fff;
+}
+
+.site-footer__inner {
+  display: grid;
+  gap: 1.5rem 2rem;
+  padding-block: 2.5rem 2rem;
+}
+
+@media (min-width: 48rem) {
+  .site-footer__inner {
+    grid-template-columns: 1.4fr 1fr 1fr;
+  }
+}
+
+.site-footer h2 {
+  font-size: 1.625rem;
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+
+.site-footer p,
+.site-footer li {
+  color: #fff;
+  font-size: 1rem;
+}
+
+.site-footer code {
+  background: color-mix(in srgb, #fff 12%, transparent);
+  border-color: color-mix(in srgb, #fff 30%, transparent);
+  color: #fff;
+}
+
+.site-footer__wordmark {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-footer__wordmark svg {
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: #fff;
+}
+
+.site-footer__cap {
+  height: 8px;
+  background: #a62a1e;
+}
+
+html[data-theme="dark"] .site-footer {
+  background: #0a1829;
+}
+
+/* Locale swapping ****************************** */
+
+html[data-locale="fr"] .lang-en {
+  display: none;
+}
+
+html[data-locale="en"] .lang-fr,
+html:not([data-locale]) .lang-fr {
+  display: none;
+}
+
+h1.hero__title.lang-en,
+h1.hero__title.lang-fr {
+  margin: 0;
+}
+
+/* Motion: square cursor, red sheen ****************************** */
+
+html.motion-ok .cursor i {
+  border-radius: 2px;
+  background: #a62a1e;
+  box-shadow: 0 0 16px color-mix(in srgb, #a62a1e 55%, transparent);
+}
+
+html.motion-ok .cursor b {
+  border-radius: 2px;
+  border-color: color-mix(in srgb, #a62a1e 50%, transparent);
+}
+
+.progress {
+  background: #a62a1e;
+  height: 6px;
+}

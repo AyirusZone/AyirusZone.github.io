@@ -43,22 +43,27 @@
 
   /* Active section in the header nav ****************************** */
 
-  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.site-nav a, .dock a'));
 
   if ('IntersectionObserver' in window && navLinks.length) {
     var byId = {};
-    navLinks.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+    navLinks.forEach(function (a) {
+      var id = a.getAttribute('href').slice(1);
+      (byId[id] = byId[id] || []).push(a);
+    });
 
     var sectionObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        var link = byId[entry.target.id];
-        if (!link || !entry.isIntersecting) return;
+        var links = byId[entry.target.id];
+        if (!links || !entry.isIntersecting) return;
         navLinks.forEach(function (a) {
           a.classList.remove('is-active');
           a.removeAttribute('aria-current');
         });
-        link.classList.add('is-active');
-        link.setAttribute('aria-current', 'location');
+        links.forEach(function (link) {
+          link.classList.add('is-active');
+          link.setAttribute('aria-current', 'location');
+        });
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
 
@@ -67,6 +72,35 @@
       if (section) sectionObserver.observe(section);
     });
   }
+
+  var roleLinks = Array.prototype.slice.call(document.querySelectorAll('.role-jump a'));
+  if ('IntersectionObserver' in window && roleLinks.length) {
+    var roleById = {};
+    roleLinks.forEach(function (a) { roleById[a.getAttribute('href').slice(1)] = a; });
+    var roleObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var link = roleById[entry.target.id];
+        if (!link || !entry.isIntersecting) return;
+        roleLinks.forEach(function (a) { a.classList.remove('is-active'); });
+        link.classList.add('is-active');
+      });
+    }, { rootMargin: '-40% 0px -50% 0px' });
+    Object.keys(roleById).forEach(function (id) {
+      var node = document.getElementById(id);
+      if (node) roleObserver.observe(node);
+    });
+  }
+
+  document.querySelectorAll('details.story').forEach(function (story) {
+    story.addEventListener('toggle', function () {
+      if (!story.open) return;
+      var group = story.closest('.stories');
+      if (!group) return;
+      group.querySelectorAll('details.story').forEach(function (sib) {
+        if (sib !== story) sib.open = false;
+      });
+    });
+  });
 
   /* Platform map: tabs with arrow-key support ****************************** */
 
@@ -206,24 +240,163 @@
 
   if (timeline) buildTimeline();
 
+  /* Motion max: pointer, kinetic title, magnetic buttons, card tilt ****************************** */
+
+  var hero = document.querySelector('.hero');
+  var pointer = { x: 0.5, y: 0.4, tx: 0.5, ty: 0.4, cx: -80, cy: -80, tcx: -80, tcy: -80 };
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  function splitTitle(el) {
+    var nodes = Array.prototype.slice.call(el.childNodes);
+    var i = 0;
+    nodes.forEach(function (node) {
+      if (node.nodeType === 3) {
+        var parts = node.textContent.split(/(\s+)/);
+        var frag = document.createDocumentFragment();
+        parts.forEach(function (part) {
+          if (!part) return;
+          if (/^\s+$/.test(part)) {
+            frag.appendChild(document.createTextNode(part));
+            return;
+          }
+          var wrap = document.createElement('span');
+          wrap.className = 'w';
+          wrap.style.setProperty('--i', String(i++));
+          var inner = document.createElement('span');
+          inner.textContent = part;
+          wrap.appendChild(inner);
+          frag.appendChild(wrap);
+        });
+        el.replaceChild(frag, node);
+      } else if (node.nodeType === 1) {
+        var wrap = document.createElement('span');
+        wrap.className = 'w';
+        wrap.style.setProperty('--i', String(i++));
+        var inner = document.createElement('span');
+        inner.className = node.className;
+        while (node.firstChild) inner.appendChild(node.firstChild);
+        wrap.appendChild(inner);
+        el.replaceChild(wrap, node);
+      }
+    });
+  }
+
+  if (!reduceMotion) {
+    document.documentElement.classList.add('motion-ok');
+    document.querySelectorAll('.hero__title').forEach(splitTitle);
+    if (hero) requestAnimationFrame(function () { hero.classList.add('is-ready'); });
+
+    document.addEventListener('pointermove', function (e) {
+      pointer.tx = (e.clientX / window.innerWidth) * 100;
+      pointer.ty = (e.clientY / window.innerHeight) * 100;
+      pointer.tcx = e.clientX;
+      pointer.tcy = e.clientY;
+    }, { passive: true });
+
+    document.addEventListener('pointerdown', function () {
+      document.documentElement.style.setProperty('--ch', '1.7');
+    });
+    document.addEventListener('pointerup', function () {
+      document.documentElement.style.setProperty('--ch', '1');
+    });
+
+    if (finePointer) {
+      document.documentElement.classList.add('cursor-on');
+      document.querySelectorAll('a, button, summary').forEach(function (el) {
+        el.addEventListener('pointerenter', function () {
+          document.documentElement.style.setProperty('--ch', '2.2');
+        });
+        el.addEventListener('pointerleave', function () {
+          document.documentElement.style.setProperty('--ch', '1');
+        });
+      });
+
+      document.querySelectorAll('.magnetic').forEach(function (el) {
+        el.addEventListener('pointermove', function (e) {
+          var r = el.getBoundingClientRect();
+          var x = (e.clientX - (r.left + r.width / 2)) * 0.28;
+          var y = (e.clientY - (r.top + r.height / 2)) * 0.28;
+          el.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
+        });
+        el.addEventListener('pointerleave', function () {
+          el.style.transform = '';
+        });
+      });
+
+      document.querySelectorAll('.rcard, .meter').forEach(function (el) {
+        el.addEventListener('pointermove', function (e) {
+          var r = el.getBoundingClientRect();
+          var px = (e.clientX - r.left) / r.width;
+          var py = (e.clientY - r.top) / r.height;
+          el.style.setProperty('--rx', ((0.5 - py) * 10).toFixed(2) + 'deg');
+          el.style.setProperty('--ry', ((px - 0.5) * 12).toFixed(2) + 'deg');
+          el.style.setProperty('--lx', (px * 100).toFixed(1) + '%');
+          el.style.setProperty('--ly', (py * 100).toFixed(1) + '%');
+        });
+        el.addEventListener('pointerleave', function () {
+          el.style.setProperty('--rx', '0deg');
+          el.style.setProperty('--ry', '0deg');
+        });
+      });
+    }
+
+    var ticking = false;
+    function paintMotion() {
+      ticking = false;
+      pointer.x += (pointer.tx - pointer.x) * 0.08;
+      pointer.y += (pointer.ty - pointer.y) * 0.08;
+      pointer.cx += (pointer.tcx - pointer.cx) * 0.18;
+      pointer.cy += (pointer.tcy - pointer.cy) * 0.18;
+      var rootStyle = document.documentElement.style;
+      rootStyle.setProperty('--mx', pointer.x.toFixed(2));
+      rootStyle.setProperty('--my', pointer.y.toFixed(2));
+      rootStyle.setProperty('--cx', pointer.cx.toFixed(1));
+      rootStyle.setProperty('--cy', pointer.cy.toFixed(1));
+      rootStyle.setProperty('--sc', Math.min(window.scrollY / Math.max(window.innerHeight, 1), 1).toFixed(3));
+    }
+
+    function requestPaint() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(paintMotion);
+    }
+
+    window.addEventListener('scroll', requestPaint, { passive: true });
+    var motionId = 0;
+    function loopMotion() {
+      if (document.hidden) {
+        motionId = 0;
+        return;
+      }
+      requestPaint();
+      motionId = requestAnimationFrame(loopMotion);
+    }
+    loopMotion();
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden && !motionId) loopMotion();
+    });
+  } else if (hero) {
+    hero.classList.add('is-ready');
+  }
+
   /* Hero data streams: raw events enter on the left, leave processed on the right ****************************** */
 
   var canvas = document.getElementById('flow');
   if (!canvas || !canvas.getContext) return;
 
   var ctx = canvas.getContext('2d');
-  var hero = canvas.closest('.hero');
-  var LANES = 9;
+  hero = hero || canvas.closest('.hero');
+  var LANES = 12;
   var CORE = 0.64;
   var W = 0;
   var H = 0;
-  var lanes = [];
   var particles = [];
   var palette = { accent: [131, 148, 255], accent2: [61, 219, 200], raw: [159, 176, 198], dark: true };
   var frameId = 0;
   var last = 0;
   var clock = 0;
   var inView = true;
+  var flowPtr = { x: 0, y: 0 };
 
   function probe(cssVar) {
     var node = document.createElement('span');
@@ -253,26 +426,27 @@
   }
 
   function laneY(i, x) {
-    var top = H * 0.1;
-    var bottom = H * 0.9;
+    var top = H * 0.08;
+    var bottom = H * 0.92;
     var baseY = top + (bottom - top) * (i / (LANES - 1));
     var centre = H * 0.46;
     var d = (x - W * CORE) / (W * 0.15);
     var pinch = Math.exp(-d * d);
-    var wave = Math.sin(x * 0.006 + i * 1.3 + clock * 0.4) * 6 * (1 - pinch * 0.8);
-    return centre + (baseY - centre) * (1 - 0.82 * pinch) + wave;
+    var wave = Math.sin(x * 0.007 + i * 1.15 + clock * 0.85) * 10 * (1 - pinch * 0.75);
+    var pull = Math.exp(-Math.pow((x - flowPtr.x) / (W * 0.22), 2));
+    return centre + (baseY - centre) * (1 - 0.82 * pinch) + wave + (flowPtr.y - centre) * pull * 0.22;
   }
 
   function seed() {
     particles = [];
-    var perLane = Math.max(3, Math.round(W / 230));
+    var perLane = Math.max(5, Math.round(W / 140));
     for (var i = 0; i < LANES; i++) {
       for (var k = 0; k < perLane; k++) {
         particles.push({
           lane: i,
           x: Math.random() * (W + 80) - 40,
-          speed: 45 + Math.random() * 70,
-          size: 1.4 + Math.random() * 1.6
+          speed: 70 + Math.random() * 110,
+          size: 1.3 + Math.random() * 2
         });
       }
     }
@@ -286,12 +460,16 @@
     canvas.width = Math.round(W * dpr);
     canvas.height = Math.round(H * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    flowPtr.x = W * CORE;
+    flowPtr.y = H * 0.46;
     seed();
     draw(0);
   }
 
   function draw(dt) {
     clock += dt;
+    flowPtr.x += ((pointer.tx / 100) * W - flowPtr.x) * 0.08;
+    flowPtr.y += ((pointer.ty / 100) * H - flowPtr.y) * 0.08;
     ctx.clearRect(0, 0, W, H);
 
     // Lane guides
@@ -333,7 +511,7 @@
         ctx.fillRect(pt.x - pt.size, py - pt.size, pt.size * 2, pt.size * 2);
       } else {
         var tint = pt.lane % 2 ? palette.accent2 : palette.accent;
-        var tail = 6 + 18 * done;
+        var tail = 10 + 28 * done;
         ctx.strokeStyle = rgba(tint, palette.dark ? 0.5 : 0.7);
         ctx.lineWidth = pt.size;
         ctx.lineCap = 'round';
