@@ -21,8 +21,9 @@
   --viz-before: light-dark(#737373, #5c95d6);
   --viz-after: light-dark(#a62a1e, #e8b4ad);
 
-  --font-display: "Bricolage Grotesque", "Lato", "Helvetica Neue", Arial, sans-serif;
-  --font-body: "Instrument Sans", "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "iA Writer Quattro", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "iA Writer Quattro", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   --step-0: 1.25rem;
   --step-1: 1.25rem;

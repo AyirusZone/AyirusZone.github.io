@@ -1,31 +1,42 @@
-/* Fonts (self-hosted, Latin subset) ****************************** */
+/* iA Writer Quattro for text, JetBrains Mono for figures and code. Both OFL. */
 
 @font-face {
-  font-family: "Bricolage Grotesque";
-  src: url("../fonts/bricolage-grotesque.woff2") format("woff2");
-  font-weight: 200 800;
-  font-stretch: 75% 100%;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Instrument Sans";
-  src: url("../fonts/instrument-sans.woff2") format("woff2");
-  font-weight: 400 700;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "IBM Plex Mono";
-  src: url("../fonts/plex-mono-400.woff2") format("woff2");
+  font-family: "iA Writer Quattro";
+  src: url("../fonts/ia-writer-quattro-regular.woff2") format("woff2");
   font-weight: 400;
+  font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "IBM Plex Mono";
-  src: url("../fonts/plex-mono-500.woff2") format("woff2");
-  font-weight: 500;
+  font-family: "iA Writer Quattro";
+  src: url("../fonts/ia-writer-quattro-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "iA Writer Quattro";
+  src: url("../fonts/ia-writer-quattro-bold.woff2") format("woff2");
+  font-weight: 600 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../fonts/jetbrains-mono-regular.woff2") format("woff2");
+  font-weight: 400 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../fonts/jetbrains-mono-bold.woff2") format("woff2");
+  font-weight: 600 800;
+  font-style: normal;
   font-display: swap;
 }
 
@@ -50,9 +61,9 @@
   --viz-before: light-dark(#7b8aa3, #5b6a84);
   --viz-after: light-dark(#2336e0, #6f82ff);
 
-  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
-  --font-body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-display: "iA Writer Quattro", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "iA Writer Quattro", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
   --step-1: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
@@ -96,6 +107,7 @@ body {
   font-family: var(--font-body);
   font-size: var(--step-0);
   line-height: 1.6;
+  font-feature-settings: "liga" 1, "calt" 1;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
@@ -344,10 +356,10 @@ button {
 h1 {
   font-family: var(--font-display);
   font-weight: 700;
-  font-stretch: 94%;
+  font-stretch: normal;
   font-size: var(--step-4);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  line-height: 1.2;
+  letter-spacing: 0;
   text-wrap: balance;
 }
 
@@ -540,10 +552,10 @@ h1 {
 h2 {
   font-family: var(--font-display);
   font-weight: 700;
-  font-stretch: 88%;
+  font-stretch: normal;
   font-size: var(--step-3);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
+  line-height: 1.2;
+  letter-spacing: 0;
   text-wrap: balance;
 }
 
